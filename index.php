@@ -59,7 +59,7 @@ $volume = round($volume, 2);
 
 echo "Circonferenza = {$circumference}cm <br>";
 echo "Area = {$area}cm^2 <br>";
-echo "Volume = {$volume}cm^ <br>";
+echo "Volume = {$volume}cm^3 <br>";
 echo "<br><br>";
 ?>
 
@@ -179,14 +179,41 @@ switch($grade){
 ?>
 
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="index.php" method="post">
+        <label>Cambia in "z" l' elemento alla xesima posizione</label><br>
+        <input type="text" name="posizione" placeholder="posizione" required><br>
+        <input type="text" name="lettera" placeholder="valore" required><br>
+        <input type="submit">
+    </form>
+</body>
+</html>
 <?php 
 
     //ARRAY
 
-$letters = array("a","b","c");
+$letters = array("a","b","c", "d");
+echo "Array inziale: <br>";
 
-echo "<br> Array inziale: <br>";
+$posizione = $_POST["posizione"] ?? ""; 
+$nuovaLettera = $_POST["lettera"] ?? ""; 
 
+$letters[$posizione] = $nuovaLettera;
+
+foreach($letters as $letter){
+    echo "$letter  ";
+};
+    echo "<br><br>";
+
+/*
 //Stampa di tutti gli elementi
 foreach($letters as $letter){
     echo $letter;
@@ -194,7 +221,8 @@ foreach($letters as $letter){
 echo "<br><br>";
 
 // cambia elemento a posizione [x], O(1)
-$letters[0] = "z";    
+$x =  $_POST["xesimaPosizione"] ?? "";
+$letters[$x] = "z";  
 
 foreach($letters as $letter){
     echo $letter;   
@@ -342,6 +370,7 @@ foreach($ksorted_letters as $letter){
     echo $letter;
 }
 echo "<br> ksort, ordina l' array in base alle chiavi, O(N log N) <br>";
+*/
 ?>
 
 
@@ -355,7 +384,7 @@ echo "<br> ksort, ordina l' array in base alle chiavi, O(N log N) <br>";
 </head>
 <body>
     <form action="index.php" method="post"> <br>
-        <label>Inserisci un paese del nord America</label>
+        <label>Inserisci un paese del nord America</label> <br>
         <input type="text" name="country">
         <input type="submit">
     </form>
