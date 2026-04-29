@@ -5,28 +5,6 @@
         header("Location: index.php");
         exit;
     }
-
-    
-    /* BASIC ARITHMETIC
-
- Math operators
-    + - *  ** %
-
- Increment and decrement
-    ++, --
-
- Operator precedence
-    () 
-    **
-    *, /, %
-    +, -
-
- Logical operators
- ||     or
- &&     and
- !      not
-
-*/
 ?>
 
 
