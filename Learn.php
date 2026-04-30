@@ -9,8 +9,24 @@
 
 
 
-<!DOCTYPE html>
+<div class="colonne">
+    <div class="colonna">
+        <!DOCTYPE html>
 <html lang="en">
+
+    <style>
+    .colonne {
+        display: flex;
+        gap: 20px;
+    }
+
+    .colonna {
+        flex: 1;
+        padding: 15px;
+        border: 1px solid black;
+    }
+</style>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -196,14 +212,18 @@ switch($grade){
         echo "<br><br>";
 
 ?>
-
-
-
-<?php 
+    </div>
+    <div class="colonna">
+        <?php 
 
     // ARRAY
+    // Form lettera
     
-$letters = array("a","b","c", "d");
+if (!isset($_SESSION["letters"])) {
+    $_SESSION["letters"] = array("a", "b", "c", "d");
+}
+
+$letters = $_SESSION["letters"];
 echo "Array inziale: <br>";
 
 
@@ -225,6 +245,55 @@ if ($posizione !== "" && $nuovaLettera !== "") {
     echo "<br><br>";
 }
 
+    // Form Conta
+
+if (isset($_POST["conta"])) {
+    echo "Numero elementi presenti nell' array: " . count($letters);
+    echo "<br><br>";
+}
+
+    // Form aggiungi elemento
+
+$find = $_POST["find"] ?? "";
+$new_value = $_POST["new_value"] ?? "";
+
+if ($find !== "" && $new_value !== "") {
+    $posizione = array_search($find, $letters);
+
+    if ($posizione !== false) {
+        echo "L'elemento si trova alla posizione: " . ($posizione+1) . "<br>";
+
+        $letters[$posizione] = $new_value;
+        $_SESSION["letters"] = $letters;
+
+
+        echo "Il nuovo array è: <br>";
+        foreach ($letters as $letter) {
+            echo $letter . " ";
+        }
+    echo "<br><br>";
+
+    } else {
+        echo "L'elemento non è presente nell'array";
+        echo "<br><br>";
+
+    }
+}
+
+
+// Aggiungi elemento alla fine dell' array
+
+$add = $_POST["elemento_da_aggiungere"] ?? "";
+
+if(isset($_POST["add"])){
+        array_push($letters, $add);
+        $_SESSION["letters"] = $letters;
+        echo "Nuovo array: ";
+        foreach($letters as $lett){
+            echo $lett ." ";
+        }
+        echo "<br><br>";
+}
 
 ?>
 <!DOCTYPE html>
@@ -241,13 +310,28 @@ if ($posizione !== "" && $nuovaLettera !== "") {
         <input type="text" name="lettera" placeholder="valore" required><br>
         <input type="submit">
     </form>
+    <form action="Learn.php" method="post">
+        <label>Clicca per contare gli elementi dell' array</label><br>
+        <input type="submit" name="conta" value="Conta"><br>
+    </form>
+    <form action="Learn.php" method="post">
+        <label>Scegli elemento da sostituire nell'array</label><br>
+        <input type="text" name="find" placeholder="elemento da cercare"><br>
+        <input type="text" name="new_value" placeholder="nuovo valore"><br>
+        <input type="submit" name="Sostituisci" value="Sostituisci"> 
+    </form>
+    <form action="Learn.php" method="post">
+        Aggiungi elemento in fondo all' array: <br>
+        <input type="text" name="elemento_da_aggiungere"><br>
+        <input type="submit" name="add" value="add"><br>
+    </form>
+
 </body>
 </html>
 <?php 
-
-
-
 ?>
+    </div>
+</div>
 
 
 
