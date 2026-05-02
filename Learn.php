@@ -309,11 +309,17 @@ if(isset($_POST["delete"])){
 }
 
 
+// Cerca valore nell' array
 
+$value_to_find = $_POST["find_value"] ?? "";
 
-
-
-
+if (isset($_POST["find"])) {
+    if (in_array($value_to_find, $letters)) {
+        echo "Il valore $value_to_find è presente nell' array" . "<br><br>";
+    } else {
+        echo "Il valore $value_to_find NON è presente nell' array" . "<br><br>";
+    }
+}
 
 ?>
 <!DOCTYPE html>
@@ -343,11 +349,16 @@ if(isset($_POST["delete"])){
     <form action="Learn.php" method="post">
         Aggiungi elemento in fondo all' array: <br>
         <input type="text" name="elemento_da_aggiungere"><br>
-        <input type="submit" name="add" value="add"><br>
+        <input type="submit" name="add" value="Add"><br>
     </form>
     <form action="Learn.php" method="post">
         Rimuovi ultimo elemento dell' array<br>
-        <input type="submit" name="delete" value="delete"><br>
+        <input type="submit" name="delete" value="Delete"><br>
+    </form><br>
+    <form action="Learn.php" method="post">
+        Cerca se un valore è presente nell' array<br>
+        <input type="text" name="find_value" ><br>
+        <input type="submit" name="find" value="Find"><br>
     </form><br>
 </body>
 </html>
