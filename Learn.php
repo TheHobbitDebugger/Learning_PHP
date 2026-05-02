@@ -295,6 +295,26 @@ if(isset($_POST["add"])){
         echo "<br><br>";
 }
 
+
+// Elimina ultimo elemento
+
+if(isset($_POST["delete"])){
+    array_pop($letters);
+    $_SESSION["letters"] = $letters;
+    echo "Nuovo array: ";
+    foreach($letters as $let){
+        echo $let . " ";
+    }
+    echo "<br><br>";
+}
+
+
+
+
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -305,7 +325,7 @@ if(isset($_POST["add"])){
 </head>
 <body>
     <form action="Learn.php" method="post">
-        <label>Cambia in un valore a tua scelta l' elemento alla xesima posizione</label><br>
+        <label>Cambia in un valore a tua scelta, l' elemento alla xesima posizione</label><br>
         <input type="text" name="posizione" placeholder="posizione" required><br>
         <input type="text" name="lettera" placeholder="valore" required><br>
         <input type="submit">
@@ -325,7 +345,10 @@ if(isset($_POST["add"])){
         <input type="text" name="elemento_da_aggiungere"><br>
         <input type="submit" name="add" value="add"><br>
     </form>
-
+    <form action="Learn.php" method="post">
+        Rimuovi ultimo elemento dell' array<br>
+        <input type="submit" name="delete" value="delete"><br>
+    </form><br>
 </body>
 </html>
 <?php 
