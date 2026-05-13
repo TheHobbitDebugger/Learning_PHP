@@ -1,0 +1,280 @@
+--Equivalente di Learn.php , ma in Javascript misto HTML
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+            <link href="styles.css" rel="stylesheet">
+            <title>My Trivia webpage</title>
+        <style>
+            .columns {
+                display: flex;
+                gap: 20px;
+            }
+
+            .column {
+                flex: 1;
+                padding: 15px;
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="columns">
+            <div class="column">
+                <form onsubmit="circleForm(); return false;">
+                    <label>Assign a radius to the circle</label><br>
+                    <input type="text" id="radius" name="radius">
+                    <input type="submit" name="conferma">
+                </form>
+                <script>
+                    function circleForm() {
+                        const radius = Number(document.getElementById("radius").value) || 0;
+                        const circumference = Math.round((2 * Math.PI * radius) * 100) / 100;
+                        const area = Math.round((Math.PI * radius ** 2 + Number.EPSILON) * 100) / 100;
+                        const volume = Math.round(((4 / 3) * Math.PI * radius ** 3 + Number.EPSILON) * 100) / 100;
+
+                        document.getElementById("circle-output").innerHTML =
+                            "Circumference = " + circumference + "cm <br>" +
+                            "Area = " + area + "cm^2 <br>" +
+                            "Volume = " + volume + "cm^3 <br><br>";
+                    }
+                </script>
+                <div id="circle-output">
+                    Circumference = 0cm <br>
+                    Area = 0cm^2 <br>
+                    Volume = 0cm^3 <br><br>
+                </div>
+
+                <form onsubmit="hoursForm(); return false;">
+                    <label>Hours worked at an hourly wage of 15$/h</label> <br>
+                    <input type="text" id="hours" name="hours">
+                    <input type="submit" name="conferma">
+                </form>
+                <script>
+                    function hoursForm() {
+                        const hours = parseInt(document.getElementById("hours").value, 10) || 0;
+                        const rate = 15;
+                        let weeklyPay = null;
+
+                        if (hours <= 0) {
+                            weeklyPay = 0;
+                        } else if (hours <= 40) {
+                            weeklyPay = hours * rate;
+                        } else {
+                            weeklyPay = rate * 40 + (hours - 40) * rate;
+                        }
+
+                        document.getElementById("weekly-pay-output").innerHTML =
+                            "You earned $" + weeklyPay + " this week<br><br>";
+                    }
+                </script>
+                <div id="weekly-pay-output">You earned $0 this week<br><br></div>
+
+                <form onsubmit="gradeForm(); return false;">
+                    <label>Assign a grade between: 0 and 10</label> <br>
+                    <input type="text" id="grade" name="grade">
+                    <input type="submit" name="Conferma">
+                </form>
+                <script>
+                    function gradeForm() {
+                        const grade = document.getElementById("grade").value;
+                        let result = "Insufficient";
+
+                        switch (grade) {
+                            case "10":
+                            case "9":
+                                result = "Excellent";
+                                break;
+                            case "8":
+                                result = "Very good";
+                                break;
+                            case "7":
+                                result = "Fair";
+                                break;
+                            case "6":
+                                result = "Sufficient";
+                                break;
+                        }
+
+                        document.getElementById("grade-output").innerHTML = result + "<br><br>";
+                    }
+                </script>
+                <div id="grade-output">Insufficient<br><br></div>
+
+                <form onsubmit="counterForm(); return false;">
+                    <label>Enter a number to count down from:</label><br>
+                    <input type="text" id="counter" name="counter">
+                    <input type="submit" name="Start">
+                </form>
+                <script>
+                    function counterForm() {
+                        const counter = parseInt(document.getElementById("counter").value, 10) || 0;
+                        let output = "";
+
+                        for (let i = counter; i > 0; i--) {
+                            output += i + " - ";
+                        }
+
+                        document.getElementById("counter-output").innerHTML = output + "0<br>";
+                    }
+                </script>
+                <div id="counter-output">0<br></div>
+
+                <form onsubmit="countryForm(); return false;"> <br>
+                    <label>Enter a country in North America</label> <br>
+                    <input type="text" id="country" name="country">
+                    <input type="submit">
+                </form>
+                <script>
+                    function countryForm() {
+                        const capitals = {
+                            Canada: "Ottawa",
+                            USA: "Washinghton D.C.",
+                            Mexico: "Mexico City",
+                            Greenland: "Nuuk"
+                        };
+                        const country = document.getElementById("country").value;
+                        const capital = capitals[country] ?? "";
+
+                        document.getElementById("capital-output").innerHTML =
+                            "The capital is " + capital + "  <br><br>";
+                    }
+                </script>
+                <div id="capital-output">The capital is   <br><br></div>
+            </div>
+            <div class="column">
+                <div id="array-initial-output">Initial array: <br>a  b  c  d  <br><br></div>
+                <div id="array-operation-output"></div>
+
+                <form onsubmit="positionForm(); return false;">
+                    <label>Change the element at the x-th position to a value of your choice</label><br>
+                    <input type="text" id="position" name="position" placeholder="position" required><br>
+                    <input type="text" id="letter" name="letter" placeholder="value" required><br>
+                    <input type="submit">
+                </form>
+                <script>
+                    function positionForm() {
+                        const letters = ["a", "b", "c", "d"];
+                        const position = document.getElementById("position").value;
+                        const newLetter = document.getElementById("letter").value;
+
+                        document.getElementById("array-initial-output").innerHTML =
+                            "Initial array: <br>" + letters.join("  ") + "  <br><br>";
+
+                        if (position !== "" && newLetter !== "") {
+                            letters[position] = newLetter;
+                            document.getElementById("array-operation-output").innerHTML =
+                                "Modified array: <br>" + letters.join("  ") + "  <br><br>";
+                        }
+                    }
+                </script>
+
+                <form onsubmit="countForm(); return false;">
+                    <label>Click to count the elements in the array</label><br>
+                    <input type="submit" name="count" value="Count"><br>
+                </form>
+                <script>
+                    function countForm() {
+                        const letters = ["a", "b", "c", "d"];
+
+                        document.getElementById("array-initial-output").innerHTML =
+                            "Initial array: <br>" + letters.join("  ") + "  <br><br>";
+                        document.getElementById("array-operation-output").innerHTML =
+                            "Number of elements in the array: " + letters.length + "<br><br>";
+                    }
+                </script>
+
+                <form onsubmit="replaceForm(); return false;">
+                    <label>Choose an element to replace in the array</label><br>
+                    <input type="text" id="find" name="find" placeholder="element to search for"><br>
+                    <input type="text" id="new_value" name="new_value" placeholder="new value"><br>
+                    <input type="submit" name="replace" value="Replace">
+                </form>
+                <script>
+                    function replaceForm() {
+                        const letters = ["a", "b", "c", "d"];
+                        const find = document.getElementById("find").value;
+                        const newValue = document.getElementById("new_value").value;
+
+                        document.getElementById("array-initial-output").innerHTML =
+                            "Initial array: <br>" + letters.join("  ") + "  <br><br>";
+
+                        if (find !== "" && newValue !== "") {
+                            const position = letters.indexOf(find);
+
+                            if (position !== -1) {
+                                letters[position] = newValue;
+                                document.getElementById("array-operation-output").innerHTML =
+                                    "The element is at position: " + (position + 1) + "<br>" +
+                                    "The new array is: <br>" + letters.join("  ") + " <br><br>";
+                            } else {
+                                document.getElementById("array-operation-output").innerHTML =
+                                    "The element is not present in the array<br><br>";
+                            }
+                        }
+                    }
+                </script>
+
+                <form onsubmit="addForm(); return false;">
+                    Add an element to the end of the array: <br>
+                    <input type="text" id="element_to_add" name="element_to_add"><br>
+                    <input type="submit" name="add" value="Add"><br>
+                </form>
+                <script>
+                    function addForm() {
+                        const letters = ["a", "b", "c", "d"];
+                        const add = document.getElementById("element_to_add").value;
+
+                        document.getElementById("array-initial-output").innerHTML =
+                            "Initial array: <br>" + letters.join("  ") + "  <br><br>";
+                        letters.push(add);
+                        document.getElementById("array-operation-output").innerHTML =
+                            "New array: " + letters.join("  ") + " <br><br>";
+                    }
+                </script>
+
+                <form onsubmit="deleteForm(); return false;">
+                    Remove the last element of the array<br>
+                    <input type="submit" name="delete" value="Delete"><br>
+                </form>
+                <script>
+                    function deleteForm() {
+                        const letters = ["a", "b", "c", "d"];
+
+                        document.getElementById("array-initial-output").innerHTML =
+                            "Initial array: <br>" + letters.join("  ") + "  <br><br>";
+                        letters.pop();
+                        document.getElementById("array-operation-output").innerHTML =
+                            "New array: " + letters.join("  ") + " <br><br>";
+                    }
+                </script>
+                <br>
+
+                <form onsubmit="findForm(); return false;">
+                    Check if a value is present in the array<br>
+                    <input type="text" id="find_value" name="find_value"><br>
+                    <input type="submit" name="find" value="Find"><br>
+                </form>
+                <script>
+                    function findForm() {
+                        const letters = ["a", "b", "c", "d"];
+                        const valueToFind = document.getElementById("find_value").value;
+
+                        document.getElementById("array-initial-output").innerHTML =
+                            "Initial array: <br>" + letters.join("  ") + "  <br><br>";
+
+                        if (letters.includes(valueToFind)) {
+                            document.getElementById("array-operation-output").innerHTML =
+                                "The value " + valueToFind + " is present in the array<br><br>";
+                        } else {
+                            document.getElementById("array-operation-output").innerHTML =
+                                "The value " + valueToFind + " is NOT present in the array<br><br>";
+                        }
+                    }
+                </script>
+                <br>
+            </div>
+        </div>
+    </body>
+</html>
